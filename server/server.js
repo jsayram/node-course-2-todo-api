@@ -49,7 +49,7 @@ app.get('/todos/:id', (req, res) => {
      //you got your sucess case if todo send it back , if no todo send back 404 with an empty body
      // you got your error case wich is 400 , then dont send back anything */
     if (!ObjectID.isValid(id)) {
-        return res.status(400).send();
+        return res.status(404).send();
     }
 
     Todo.findById(id).then((todo) => {
@@ -62,8 +62,6 @@ app.get('/todos/:id', (req, res) => {
     }).catch((e) => {
         res.status(400).send();
     })
-
-
 
     // res.send(req.params);
 });
