@@ -123,9 +123,6 @@ describe('GET /todos/:id', () => {
     });
 });
 
-
-
-
 describe('DELETE /todos/:id', (done) => {
 
     it('should remove a todo', (done) => {
