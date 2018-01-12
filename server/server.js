@@ -94,7 +94,6 @@ app.delete('/todos/:id', (req, res) => {
 
 
 /* patch is what is used to UPDATE a resource */
-
 app.patch('/todos/:id', (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['text', 'completed']);
@@ -118,8 +117,6 @@ app.patch('/todos/:id', (req, res) => {
         res.status(400).send();
     })
 });
-
-
 
 
 app.listen(port, () => {
