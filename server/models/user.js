@@ -45,10 +45,7 @@ UserSchema.methods.toJSON = function () {
 };
 
 
-
-
-
-UserSchema.methods.generateAuthToken = function() {
+UserSchema.methods.generateAuthToken = function () {
     var user = this;
     var access = 'auth';
     var token = jwt.sign({ _id: user._id.toHexString(), access }, 'abc123').toString();
@@ -59,6 +56,28 @@ UserSchema.methods.generateAuthToken = function() {
         return token;
     });
 };
+
+
+UserSchema.statics.findByToken = function (token) {
+	var User = this; 
+	var decoded;
+
+	try {
+		decoded = jwt.verify(token, 'abc123');
+	} catch (e) {
+		// return new Promise((resolve, reject) =>{
+		// 	reject();
+		// });
+		return Promise.reject();
+	}
+	return User.findOne({
+		'_id': decoded._id,
+		'tokens.token': token,
+		'tokens.access': 'auth'
+	});
+};
+
+
 
 /*new user model for authentication model*/
 // email property -- require it , and trim it set the type equal to string , set min length to 1 
